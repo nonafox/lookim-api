@@ -1,0 +1,1 @@
+<? api_callback(0, '404 NOT FOUND~'); ?>
