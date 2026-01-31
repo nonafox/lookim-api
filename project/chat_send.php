@@ -7,8 +7,8 @@
     if (! $udata)
       throw new Exception();
     $time = time_microtime();
-    if (sql_exec_count('INSERT INTO chat (time, edited_time, user_id, type, msg, folded) VALUES (?, ?, ?, ?, ?, 0)', [
-      $time, $time, $udata['id'], $_POST['type'], $_POST['msg']
+    if (sql_exec_count('INSERT INTO chat (time, edited_time, user_id, type, msg, submsg, folded) VALUES (?, ?, ?, "common", ?, "", 0)', [
+      $time, $time, $udata['id'], $_POST['msg']
     ])) {
       api_callback(1);
     }

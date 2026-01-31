@@ -103,11 +103,24 @@
         }
         return $result;
     }
-    function http_json($url = '', $dataArray = [], $header = [], $cookie = []) {
+    function http_json($url = '', $dataArray = [], $header = [], $cookies = []) {
         $jsonHeader = [
             'Content-type: application/json; charset=\'utf-8\'',
             'Accept: application/json'
         ];
-        return http($url, json_encode($dataArray), array_merge($jsonHeader, $header), $cookie);
+        return http($url, json_encode($dataArray), array_merge($jsonHeader, $header), $cookies);
+    }
+
+    function vaptcha_sms_send($phone = '', $templateId = '0', $templateParam = []) {
+        $result = http_json(c::$VAPTCHA_SMS_URL, [
+            'smsid' => s::$VAPTCHA_SMS_CONFIG['smsid'],
+            'smskey' => s::$VAPTCHA_SMS_CONFIG['smskey'],
+            'token' => '',
+            'data' => $templateParam,
+            'countrycode' => '86',
+            'phone' => $phone,
+            'templateid' => $templateId
+        ]);
+        return (intval($result) === 200);
     }
 ?>
